@@ -1,4 +1,3 @@
-// Smooth scroll to section when dock button is clicked
 $(function() {
     $('#contact').click(function() {
       $('#contactForm').fadeToggle();
@@ -24,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
-
-                // Highlight the active button
                 dockButtons.forEach(btn => {
                     btn.classList.remove('active');
                 });
@@ -33,9 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-
-    // Highlight active button based on scroll position
     window.addEventListener('scroll', () => {
         const sections = document.querySelectorAll('.section');
         const scrollPosition = window.scrollY + window.innerHeight / 2;
