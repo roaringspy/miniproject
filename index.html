@@ -19,8 +19,8 @@
             <a href="#contactsec">Contact</a>
         </div>
         <div class="auth-buttons">
-            <button class="btn btn-primary">Login <i class='bx bx-log-in'></i></button>
-            <button class="btn btn-secondary">Sign Up <i class='bx bx-user-plus' ></i></button>
+            <button class="btn btn-primary" onclick="goToLoginPage()">Login <i class='bx bx-log-in'></i></button>
+            <button class="btn btn-secondary" onclick="goToSignUpPage()">Sign Up <i class='bx bx-user-plus' ></i></button>
         </div>
     </div>
 
@@ -107,6 +107,73 @@
         </div>
     </footer>
 
-    <script src="script/script.js"></script>
+    <script>
+        $(function() {
+    $('#contact').click(function() {
+      $('#contactForm').fadeToggle();
+    })
+    $(document).mouseup(function (e) {
+      var container = $("#contactForm");
+  
+      if (!container.is(e.target)
+          && container.has(e.target).length === 0)
+      {
+          container.fadeOut();
+      }
+    });
+  });
+  
+document.addEventListener('DOMContentLoaded', () => {
+    const dockButtons = document.querySelectorAll('.dock-btn');
+
+    dockButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+            const targetSection = document.getElementById(targetId);
+
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+                dockButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+            }
+        });
+    });
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('.section');
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+        sections.forEach(section => {
+            if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+                const targetId = section.getAttribute('id');
+                const activeButton = document.querySelector(`.dock-btn[data-target="${targetId}"]`);
+
+                if (activeButton) {
+                    dockButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    activeButton.classList.add('active');
+                }
+            }
+        });
+    });
+});
+
+function goToLoginPage() {
+    try {
+        window.location.href = "login.html";
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+  }
+  function goToSignUpPage() {
+    try {
+        window.location.href = "signup.html";
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+  }
+    </script>
 </body>
 </html>

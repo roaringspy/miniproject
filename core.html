@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Social Links</title>
+    <link rel="stylesheet" href="css/corestyles.css">
+</head>
+<body>
+    <button class="home-button" onclick="goToHomePage()">Home</button>
+    <div class="container">
+        <h1>My Social Links</h1>
+        <form id="socialForm">
+            <div class="input-group">
+                <img src="assets/twitter.png" alt="Twitter Logo" class="social-logo">
+                <input type="text" id="twitter" name="twitter" placeholder="Twitter Username">
+                <input type="button" value="Go" onclick="openSocialLink('twitter')">
+            </div>
+
+            <div class="input-group">
+                <img src="assets/insta.jpeg" alt="Instagram Logo" class="social-logo">
+                <input type="text" id="instagram" name="instagram" placeholder="Instagram Username">
+                <input type="button" value="Go" onclick="openSocialLink('instagram')">
+            </div>
+
+            <div class="input-group">
+                <img src="assets/snap.png" alt="Snapchat Logo" class="social-logo">
+                <input type="text" id="snapchat" name="snapchat" placeholder="Snapchat URL">
+                <input type="button" value="Go" onclick="openSocialLink('snapchat')">
+            </div>
+
+            <div class="input-group">
+                <img src="assets/spotify.png" alt="Spotify Logo" class="social-logo">
+                <input type="text" id="spotify" name="spotify" placeholder="Spotify URL">
+                <input type="button" value="Go" onclick="openSocialLink('spotify')">
+            </div>
+
+            <div class="input-group">
+                <img src="assets/linkedin.png" alt="LinkedIn Logo" class="social-logo">
+                <input type="text" id="linkedin" name="linkedin" placeholder="LinkedIn URL">
+                <input type="button" value="Go" onclick="openSocialLink('linkedin')">
+            </div>
+
+            <div class="input-group">
+                <img src="assets/git.png" alt="GitHub Logo" class="social-logo">
+                <input type="text" id="github" name="github" placeholder="GitHub URL">
+                <input type="button" value="Go" onclick="openSocialLink('github')">
+            </div>
+
+            <input type="button" value="Update Links" onclick="updateSocialLinks()" class="update-btn">
+        </form>
+
+        <ul id="socialLinks">
+        </ul>
+    </div>
+
+    <div class="phone">
+        <div class="screen" id="phoneScreen">
+        </div>
+        <img src="assets/battery.png" alt="Battery Charge Icon" class="battery-icon">
+        <div class="bottom-bar"></div>
+        <div class="notch"></div>
+    </div>
+
+    <script>
+        let storedLinks = {};
+
+        function openSocialLink(socialMedia) {
+            const value = document.getElementById(socialMedia).value.trim();
+            if (value !== "") {
+                if (socialMedia === "twitter" || socialMedia === "instagram") {
+                    window.open(`https://${socialMedia}.com/${value}`, "_blank");
+                } else {
+                    window.open(value, "_blank");
+                }
+            }
+        }
+
+        function updateSocialLinks() {
+            const twitterUsername = document.getElementById("twitter").value.trim();
+            const instagramUsername = document.getElementById("instagram").value.trim();
+            const snapchatUrl = document.getElementById("snapchat").value.trim();
+            const spotifyUrl = document.getElementById("spotify").value.trim();
+            const linkedinUrl = document.getElementById("linkedin").value.trim();
+            const githubUrl = document.getElementById("github").value.trim();
+
+            storedLinks = {
+                twitter: twitterUsername,
+                instagram: instagramUsername,
+                snapchat: snapchatUrl,
+                spotify: spotifyUrl,
+                linkedin: linkedinUrl,
+                github: githubUrl
+            };
+            const phoneScreen = document.getElementById("phoneScreen");
+            phoneScreen.innerHTML = "";
+
+            Object.entries(storedLinks).forEach(([socialMedia, link]) => {
+    if (link !== "") {
+        const listItem = document.createElement("div");
+        listItem.classList.add("social-link-item");
+        
+        if (socialMedia === "twitter" || socialMedia === "instagram") {
+            listItem.innerHTML = `<a href="https://${socialMedia}.com/${link}" target="_blank">${socialMedia}</a>`;
+        } else {
+            listItem.innerHTML = `<a href="${link}" target="_blank">${socialMedia}</a>`;
+        }
+        phoneScreen.appendChild(listItem);
+    }
+});
+
+
+            console.log(storedLinks);
+        }
+        
+function goToHomePage() {
+    try {
+        window.location.href = "index.html";
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
+}
+    </script>
+</body>
+</html>
